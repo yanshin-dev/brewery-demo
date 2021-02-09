@@ -3,11 +3,9 @@ package dev.yanshin.brewery.web.controller;
 import dev.yanshin.brewery.services.BeerService;
 import dev.yanshin.brewery.web.model.BeerDto;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.UUID;
 
 @RequestMapping("/api/v1/beer")
@@ -23,5 +21,12 @@ public class BeerController {
     @GetMapping("/{beerId}")
     public ResponseEntity<BeerDto> getBeer(@PathVariable("beerId") UUID beerId) {
         return ResponseEntity.ok(beerService.getBeerById(beerId));
+    }
+
+    @PostMapping
+    public ResponseEntity<BeerDto> createBeer(@RequestBody BeerDto beer) {
+        var savedDto = beerService.createBeer(beer);
+        var newResourceURI = URI.create("/api/v1/beer/" + savedDto.getUuid());
+        return ResponseEntity.created(newResourceURI).body(savedDto);
     }
 }
