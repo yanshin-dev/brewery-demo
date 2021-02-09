@@ -24,9 +24,15 @@ public class BeerController {
     }
 
     @PostMapping
-    public ResponseEntity<BeerDto> createBeer(@RequestBody BeerDto beer) {
-        var savedDto = beerService.createBeer(beer);
+    public ResponseEntity<BeerDto> createBeer(@RequestBody BeerDto beerDto) {
+        var savedDto = beerService.createBeer(beerDto);
         var newResourceURI = URI.create("/api/v1/beer/" + savedDto.getUuid());
         return ResponseEntity.created(newResourceURI).body(savedDto);
+    }
+
+    @PutMapping("/{beerId}")
+    public ResponseEntity<Object> updateBeer(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto) {
+        beerService.updateBeer(beerId, beerDto);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -17,12 +17,17 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public BeerDto createBeer(BeerDto beer) {
+    public BeerDto createBeer(BeerDto beerDto) {
         return BeerDto.builder()
                 .uuid(UUID.randomUUID())
-                .beerName(beer.getBeerName())
-                .beerStyle(beer.getBeerStyle())
-                .upc(beer.getUpc())
+                .beerName(beerDto.getBeerName())
+                .beerStyle(beerDto.getBeerStyle())
+                .upc(beerDto.getUpc())
                 .build();
+    }
+
+    @Override
+    public void updateBeer(UUID beerId, BeerDto beerDto) {
+        // todo: update Beer
     }
 }
