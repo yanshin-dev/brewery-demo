@@ -28,7 +28,7 @@ public class BeerController {
     public ResponseEntity<BeerDto> createBeer(@RequestBody BeerDto beerDto) {
         var savedDto = beerService.createBeer(beerDto);
         //todo: replace hardcode URI
-        var newResourceURI = URI.create("/api/v1/beers/" + savedDto.getUuid());
+        var newResourceURI = URI.create("/api/v1/beers/" + savedDto.getId());
         return ResponseEntity.created(newResourceURI).body(savedDto);
     }
 
